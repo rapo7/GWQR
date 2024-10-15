@@ -21,7 +21,7 @@ const qrCode = new QRCodeStyling({
 });
 
 export default function App() {
-  const [url, setUrl] = useState("https://law.gwu.edu");
+  const [url, setUrl] = useState("https://www.law.gwu.edu/");
   const ref = useRef(null);
 
   useEffect(() => {
