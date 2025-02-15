@@ -46,18 +46,18 @@ export default function App() {
   };
 
   return (
-    <section class="container">
-      <div class="heading">
+    <section className="container">
+      <div className="heading">
         <img src={GWLogo} width={50} alt="GW Logo" style={{ padding: 25 }} />
-        <h1 class="heading__title">Generate a GW QR code</h1>
+        <h1 className="heading__title">Generate a GW QR code</h1>
       </div>
-      <form class="form">
+      <form Name="form">
         <div>
-          <label class="form__label" for="todo">
-            Paste your URL below
+          <label className="form__label" for="todo">
+            Paste your URL Here 👇
           </label>
           <input
-            class="form__input"
+            className="form__input"
             type="text"
             id="todo"
             name="to-do"
@@ -65,15 +65,18 @@ export default function App() {
             required
             value={url}
             onChange={onUrlChange}
+            autoFocus
           />
-          <button class="button" onClick={onDownloadClick}>
-            <span>Download</span>
-          </button>
         </div>
       </form>
-      <div>
-        <div ref={ref} />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="qr-code" ref={ref} />
       </div>
+      <br />
+      <button className="button" onClick={onDownloadClick}>
+        <span>Download</span>
+      </button>
+      <br />
       Made with ❤️ by Media Center at GW Law
     </section>
   );
