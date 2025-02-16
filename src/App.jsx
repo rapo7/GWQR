@@ -44,6 +44,10 @@ export default function App() {
       image: logo,
       width: size,
       height: size,
+      imageOptions: {
+        margin: size / 10,
+        imageSize: 0.75,
+      },
       dotsOptions: {
         color: GWColors.blue,
         type: style,
@@ -181,11 +185,20 @@ export default function App() {
           autoFocus
         />
       </form>
-      <div style={{ display: "flex", justifyContent: "center", padding: 25 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: size / 10,
+        }}
+      >
         <div ref={qrCode} />
       </div>
       <br />
-      <button className="button" onClick={() => qr.download({name: "GWQRCode", extension: "png"})}>
+      <button
+        className="button"
+        onClick={() => qr.download({ name: "GWQRCode", extension: "png" })}
+      >
         <span>Download</span>
       </button>
       <br />
@@ -194,8 +207,6 @@ export default function App() {
         Guidelines
       </a>{" "}
       before printing
-      <br />
-      Made with ❤️ by Media Center at GW Law
     </section>
   );
 }
