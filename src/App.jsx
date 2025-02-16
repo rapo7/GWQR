@@ -45,7 +45,7 @@ export default function App() {
       width: size,
       height: size,
       imageOptions: {
-        margin: size / 10,
+        margin: size /50,
         imageSize: 0.75,
       },
       dotsOptions: {
@@ -194,7 +194,6 @@ export default function App() {
       >
         <div ref={qrCode} />
       </div>
-      <br />
       <button
         className="button"
         onClick={() => qr.download({ name: "GWQRCode", extension: "png" })}
