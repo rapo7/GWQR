@@ -144,6 +144,7 @@ export default function App() {
               type="range"
               min="300"
               max="800"
+              id="size"
               value={size}
               className="span2"
               onChange={(e) => handleSizeChange(e.target.value)}
