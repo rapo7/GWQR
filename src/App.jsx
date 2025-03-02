@@ -179,13 +179,13 @@ export default function App() {
                 </>
               )}
             </select>
-            <label className="form__label mobile-none">Style</label>
+            <label className="form__label mobile-none" htmlFor="style">Style</label>
 
             <label htmlFor="mainDots">MainDots</label>
             <label htmlFor="CornerSquares">Corner squares</label>
             <label htmlFor="CornerDots"> Corner dots</label>
 
-            <label className="form__label"></label>
+            <input type="hidden" id="style"></input>
             <select
               name="style"
               id="mainDots"
