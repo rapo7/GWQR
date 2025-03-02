@@ -13,12 +13,13 @@ const GWColors = {
 };
 
 export default function App() {
-  const [url, setUrl] = useState("https://law.gwu.edu");
+  const [url, setUrl] = useState("https://www.law.gwu.edu/");
   const [size, setSize] = useState(400);
-  const [logo, setLogo] = useState(getLogo("GWLogo"));
+  const [logo, setLogo] = useState(getLogo("GWLogo5"));
   const [style, setStyle] = useState("square");
   const [squareStyle, setSquareStyle] = useState("square");
   const [cornersStyle, setCornersStyle] = useState("square");
+  const [theme, setTheme] = useState("light");
   const qrCode = useRef(null);
 
   let qr = new QRCodeStyling({
@@ -45,11 +46,11 @@ export default function App() {
       width: size,
       height: size,
       imageOptions: {
-        margin: size /50,
+        margin: size / 50,
         imageSize: 0.75,
       },
       dotsOptions: {
-        color: GWColors.blue,
+        color: theme === "light" ? GWColors.blue : GWColors.white,
         type: style,
       },
       cornersDotOptions: {
@@ -59,10 +60,13 @@ export default function App() {
       cornersSquareOptions: {
         type: squareStyle,
       },
+      backgroundOptions: {
+        color: theme === "light" ? GWColors.white : GWColors.blue,
+      },
     });
     qrCode.current.innerHTML = "";
     qr.append(qrCode.current);
-  }, [url, logo, size, style, squareStyle, cornersStyle]);
+  }, [url, logo, size, style, squareStyle, cornersStyle, theme]);
 
   const onUrlChange = (event) => {
     event.preventDefault();
@@ -75,6 +79,16 @@ export default function App() {
 
   const handleSizeChange = (size) => {
     setSize(size);
+  };
+  const handleThemeChange = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    setLogo(() => {
+      if (theme === "light") {
+        return getLogo("GWLogo10");
+      } else {
+        return getLogo("GWLogo5");
+      }
+    });
   };
 
   const options = [
@@ -89,123 +103,153 @@ export default function App() {
 
   return (
     <section className="container">
-      <div className="heading">
-        <img src={GWLogo} width={100} alt="GW Logo" style={{ padding: 25 }} />
-        <h1 className="heading__title">Generate a GW QR code</h1>
-      </div>
-      <form name="form">
-        <fieldset>
-          <label className="form__label" htmlFor="size">
-            QR Code Size
+      <div className="left">
+        <div className="heading">
+          <img src={GWLogo} width={100} alt="GW Logo" style={{ padding: 25 }} />
+          <h1 className="heading__title">Generate a GW QR code</h1>
+        </div>
+        <form name="form">
+          <label className="form__label" htmlFor="input">
+            Paste your URL Here 👇
           </label>
+
           <input
-            type="range"
-            min="300"
-            max="800"
-            value={size}
-            className="span2"
-            onChange={(e) => handleSizeChange(e.target.value)}
+            className="form__input"
+            type="text"
+            id="input"
+            name="input"
+            required
+            value={url}
+            onChange={onUrlChange}
+            autoFocus
           />
-          <label className="form__label" htmlFor="logo">
-            Logo
-          </label>
-          <select
-            className="form__input span2"
-            name="logo"
-            id="logo"
-            onChange={(e) => handleLogoChange(e.target.value)}
-          >
-            <option value="GWLogo">Primary 1 color</option>
-            <option value="GWLogo5">Primary 2 colors</option>
-            <option value="GWLogo6">Primary Black</option>
-            <option value="GWLogo2">Monogram 2 colors</option>
-            <option value="GWLogo3">Monogram Black</option>
-            <option value="GWLogo4">Monogram 1 color</option>
-          </select>
-          <label className="form__label">Style</label>
+          <fieldset>
+            <label className="form__label" htmlFor="darkmode-toggle">
+              Theme
+            </label>
+            <input
+              type="checkbox"
+              className="sr-only"
+              id="darkmode-toggle"
+              onChange={handleThemeChange}
+            />
+            <label htmlFor="darkmode-toggle" className="toggle span2">
+              <span>Toggle dark mode</span>
+            </label>
 
-          <label htmlFor="style">MainDots</label>
-          <label htmlFor="">Corner squares</label>
-          <label htmlFor=""> Corner dots</label>
+            <label className="form__label" htmlFor="size">
+              QR Code Size
+            </label>
+            <input
+              type="range"
+              min="300"
+              max="800"
+              value={size}
+              className="span2"
+              onChange={(e) => handleSizeChange(e.target.value)}
+            />
+            <label className="form__label" htmlFor="logo">
+              Logo
+            </label>
+            <select
+              className="span2"
+              name="logo"
+              id="logo"
+              onChange={(e) => handleLogoChange(e.target.value)}
+            >
+              {theme === "light" ? (
+                <>
+                  <option value="GWLogo">Primary 1 color</option>
+                  <option value="GWLogo5" selected={true}>
+                    Primary 2 colors
+                  </option>
+                  <option value="GWLogo6">Primary Black</option>
+                  <option value="GWLogo2">Monogram 2 colors</option>
+                  <option value="GWLogo3">Monogram Black</option>
+                  <option value="GWLogo4">Monogram 1 color</option>
+                </>
+              ) : (
+                <>
+                  <option value="GWLogo7">Monogram 2 colors</option>
+                  <option value="GWLogo8">Monogram White</option>
+                  <option value="GWLogo9">Primary White</option>
+                  <option value="GWLogo10" selected={true}>
+                    Primary 2 colors
+                  </option>
+                </>
+              )}
+            </select>
+            <label className="form__label mobile-none">Style</label>
 
-          <label className="form__label"></label>
-          <select
-            className=""
-            name="style"
-            id="style"
-            value={style}
-            onChange={(e) => setStyle(e.target.value)}
-          >
-            {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <select
-            className=""
-            name="style"
-            id="style"
-            value={squareStyle}
-            onChange={(e) => setSquareStyle(e.target.value)}
-          >
-            {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <select
-            className=""
-            name="style"
-            id="style"
-            value={cornersStyle}
-            onChange={(e) => setCornersStyle(e.target.value)}
-          >
-            {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </fieldset>
-        <br />
+            <label htmlFor="style">MainDots</label>
+            <label htmlFor="">Corner squares</label>
+            <label htmlFor=""> Corner dots</label>
 
-        <label className="form__label" htmlFor="input">
-          Paste your URL Here 👇
-        </label>
-        <input
-          className="form__input"
-          type="text"
-          id="input"
-          name="input"
-          required
-          value={url}
-          onChange={onUrlChange}
-          autoFocus
-        />
-      </form>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: size / 10,
-        }}
-      >
-        <div ref={qrCode} />
+            <label className="form__label"></label>
+            <select
+              name="style"
+              id="style"
+              value={style}
+              onChange={(e) => setStyle(e.target.value)}
+            >
+              {options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <select
+              name="style"
+              id="style"
+              value={squareStyle}
+              onChange={(e) => setSquareStyle(e.target.value)}
+            >
+              {options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <select
+              name="style"
+              id="style"
+              value={cornersStyle}
+              onChange={(e) => setCornersStyle(e.target.value)}
+            >
+              {options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+          <br />
+        </form>
       </div>
-      <button
-        className="button"
-        onClick={() => qr.download({ name: "GWQRCode", extension: "png" })}
-      >
-        <span>Download</span>
-      </button>
-      <br />
-      Make sure to follow GW logo 👉{" "}
-      <a href="https://communications.gwu.edu/visual-identity/logos">
-        Guidelines
-      </a>{" "}
-      before printing
+
+      <div className="right">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: size / 10,
+          }}
+        >
+          <div ref={qrCode} />
+        </div>
+        <button
+          className="button"
+          onClick={() => qr.download({ name: "GWQRCode", extension: "png" })}
+        >
+          <span>Download</span>
+        </button>
+        <br />
+        Make sure to follow GW logo 👉{" "}
+        <a href="https://communications.gwu.edu/visual-identity/logos">
+          Guidelines
+        </a>{" "}
+        before printing
+      </div>
     </section>
   );
 }
