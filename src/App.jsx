@@ -181,14 +181,14 @@ export default function App() {
             </select>
             <label className="form__label mobile-none">Style</label>
 
-            <label htmlFor="style">MainDots</label>
-            <label htmlFor="">Corner squares</label>
-            <label htmlFor=""> Corner dots</label>
+            <label htmlFor="mainDots">MainDots</label>
+            <label htmlFor="CornerSquares">Corner squares</label>
+            <label htmlFor="CornerDots"> Corner dots</label>
 
             <label className="form__label"></label>
             <select
               name="style"
-              id="style"
+              id="mainDots"
               value={style}
               onChange={(e) => setStyle(e.target.value)}
             >
@@ -200,7 +200,7 @@ export default function App() {
             </select>
             <select
               name="style"
-              id="style"
+              id="CornerSquares"
               value={squareStyle}
               onChange={(e) => setSquareStyle(e.target.value)}
             >
@@ -212,7 +212,7 @@ export default function App() {
             </select>
             <select
               name="style"
-              id="style"
+              id="CornerDots"
               value={cornersStyle}
               onChange={(e) => setCornersStyle(e.target.value)}
             >
