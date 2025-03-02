@@ -168,6 +168,7 @@ export default function App() {
                   <option value="GWLogo2">Monogram 2 colors</option>
                   <option value="GWLogo3">Monogram Black</option>
                   <option value="GWLogo4">Monogram 1 color</option>
+                  <option value="GWLogoSGA">GWSGA Logo</option>
                 </>
               ) : (
                 <>
@@ -177,6 +178,7 @@ export default function App() {
                   <option value="GWLogo10" selected={true}>
                     Primary 2 colors
                   </option>
+                  <option value="GWLogoSGA">GWSGA Logo</option>
                 </>
               )}
             </select>

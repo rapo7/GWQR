@@ -10,6 +10,7 @@ import GWLogo7 from "../assets/gw_monogram_2c_rev.png";
 import GWLogo8 from "../assets/gw_monogram_wht_rev.png";
 import GWLogo10 from "../assets/gw_primary_2c_rev.png";
 import GWLogo9 from "../assets/gw_primary_wht_rev.png";
+import GWLogo11 from "../assets/gw_sga_logo.png";
 
 export default function getLogo(logo) {
     switch (logo) {
@@ -33,6 +34,8 @@ export default function getLogo(logo) {
             return GWLogo9;
         case "GWLogo10":
             return GWLogo10;
+        case "GWLogoSGA":
+            return GWLogo11;
         default:
             return GWLogo;
     }
